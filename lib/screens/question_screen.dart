@@ -1,10 +1,10 @@
-import 'dart:async';
-
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_app/progress_bar.dart';
 import 'package:quiz_app/question_card.dart';
+import 'package:quiz_app/question_generator.dart';
 import 'package:quiz_app/screens/custom_screen.dart';
-//import 'package:flutter_svg/flutter_svg.dart';
+
+import '../constants.dart';
 
 class QuestionScreen extends StatefulWidget {
   const QuestionScreen({super.key});
@@ -14,24 +14,8 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
-  bool _started = false;
   static const totalTime = 60;
-  PageController _pageController = PageController();
-  String _timeString = "$totalTime";
-
-  @override
-  void initState() {
-    super.initState();
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        _timeString = "${totalTime - timer.tick}";
-        _started = true;
-        if (timer.tick == totalTime) {
-          timer.cancel();
-        }
-      });
-    });
-  }
+  final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,76 +38,55 @@ class _QuestionScreenState extends State<QuestionScreen> {
                   size: 40,
                 ),
                 Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                   child: Text("Skip",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Stack(
-                      alignment: Alignment.centerLeft,
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: const Color(0xFF3F4768), width: 1),
-                            borderRadius: BorderRadius.circular(50),
+                    const ProgressBar(totalTime: totalTime),
+                    const SizedBox(height: 30),
+                    const Text.rich(
+                      TextSpan(
+                        text: "Question 1",
+                        style: TextStyle(
+                            color: kSecondaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30),
+                        children: [
+                          TextSpan(
+                            text: "/10",
+                            style:
+                                TextStyle(color: kSecondaryColor, fontSize: 20),
                           ),
-                        ),
-                        AnimatedContainer(
-                          duration: const Duration(seconds: totalTime),
-                          width:
-                              _started ? MediaQuery.of(context).size.width : 30,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFF46A0AE), Color(0xFF00FFCB)],
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                            ),
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(
-                                color: const Color(0xFF3F4768), width: 1),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("$_timeString Sec"),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 50),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: const [
-                        Text(
-                          "Question 1",
-                          style:
-                              TextStyle(fontSize: 40, color: Color(0xFF8B94BC)),
-                        ),
-                        Text("/10",
-                            style: TextStyle(
-                                fontSize: 30, color: Color(0xFF8B94BC))),
-                      ],
-                    ),
-                    const SizedBox(height: 50),
-                    Expanded(
-                      child: PageView(
-                        //pageSnapping: false,
-                        controller: _pageController,
-                        children: const [QuestionCard(), QuestionCard()],
+                        ],
                       ),
                     ),
+                    const Divider(
+                      thickness: 1.5,
+                    ),
+                    const SizedBox(height: 20),
+                    Expanded(
+                      child: PageView.builder(
+                        // Block swipe to next qn
+                        physics: const NeverScrollableScrollPhysics(),
+                        controller: _pageController,
+                        onPageChanged: (index) {},
+                        itemCount: 10,
+                        itemBuilder: (context, index) => QuestionCard(
+                          question: QuestionGenerator.results[index].question,
+                          options: [],
+                          correctAnswer: 'true',
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),

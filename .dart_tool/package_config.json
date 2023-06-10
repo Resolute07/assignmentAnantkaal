@@ -92,6 +92,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "http",
+      "rootUri": "file:///Users/spandanmn/.pub-cache/hosted/pub.dev/http-0.13.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "http_parser",
+      "rootUri": "file:///Users/spandanmn/.pub-cache/hosted/pub.dev/http_parser-4.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "js",
       "rootUri": "file:///Users/spandanmn/.pub-cache/hosted/pub.dev/js-0.6.5",
       "packageUri": "lib/",
@@ -254,7 +266,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-06-10T14:27:49.062086Z",
+  "generated": "2023-06-10T15:55:33.987371Z",
   "generator": "pub",
   "generatorVersion": "2.19.6"
 }

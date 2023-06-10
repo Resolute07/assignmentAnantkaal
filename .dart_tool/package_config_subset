@@ -50,6 +50,14 @@ hive_flutter
 2.12
 file:///Users/spandanmn/.pub-cache/hosted/pub.dev/hive_flutter-1.1.0/
 file:///Users/spandanmn/.pub-cache/hosted/pub.dev/hive_flutter-1.1.0/lib/
+http
+2.19
+file:///Users/spandanmn/.pub-cache/hosted/pub.dev/http-0.13.6/
+file:///Users/spandanmn/.pub-cache/hosted/pub.dev/http-0.13.6/lib/
+http_parser
+2.12
+file:///Users/spandanmn/.pub-cache/hosted/pub.dev/http_parser-4.0.2/
+file:///Users/spandanmn/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib/
 js
 2.16
 file:///Users/spandanmn/.pub-cache/hosted/pub.dev/js-0.6.5/

@@ -64,7 +64,7 @@ flutter:
   assets:
     - assets/images/quiz.png
     - assets/images/quiz1.png
-    - assets/images/bg.svg
+    - assets/images/quiz-image.jpg
     - assets/images/bg2.jpeg
 
 

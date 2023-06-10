@@ -12,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _localBox = Hive.box('localBox');
-  TextEditingController _nameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           MaterialStateProperty.all(Colors.transparent),
                     ),
                     child: Text(
-                      'Log in'.toUpperCase(),
+                      'Start Quiz'.toUpperCase(),
                       style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

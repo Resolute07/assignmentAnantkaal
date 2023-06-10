@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomScreen extends StatefulWidget {
-  const CustomScreen({super.key, this.child});
+  const CustomScreen({super.key, this.child, this.alignment, this.appBar});
 
   final Widget? child;
+  final AppBar? appBar;
+  final AlignmentGeometry? alignment;
 
   @override
   State<CustomScreen> createState() => _CustomScreenState();
@@ -21,9 +23,12 @@ class _CustomScreenState extends State<CustomScreen> {
         }
       },
       child: Scaffold(
+        appBar: widget.appBar,
         body: SafeArea(
           child: Stack(
-            alignment: AlignmentDirectional.center,
+            alignment: widget.alignment == null
+                ? AlignmentDirectional.topStart
+                : widget.alignment!,
             children: [
               // background Image for app
 

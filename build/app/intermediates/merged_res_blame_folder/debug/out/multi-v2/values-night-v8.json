@@ -4,7 +4,7 @@
             "outputFile": "com.example.quiz_app-mergeDebugResources-9:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/Users/spandanmn/Desktop/flutter-projects/quiz_app/android/app/src/main/res/values-night/styles.xml",
+                    "source": "/Users/spandanmn/Desktop/flutter-projects/quiz_anantkaal/android/app/src/main/res/values-night/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

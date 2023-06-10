@@ -1,0 +1,4 @@
+#Sat Jun 10 13:04:57 IST 2023
+base.0=/Users/spandanmn/Desktop/flutter-projects/quiz_app/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

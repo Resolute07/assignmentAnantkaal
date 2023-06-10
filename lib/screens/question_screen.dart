@@ -8,6 +8,7 @@ import '../constants.dart';
 
 class QuestionScreen extends StatefulWidget {
   const QuestionScreen({super.key});
+  static const id = '/QuestionScreen';
 
   @override
   State<QuestionScreen> createState() => _QuestionScreenState();
@@ -16,6 +17,12 @@ class QuestionScreen extends StatefulWidget {
 class _QuestionScreenState extends State<QuestionScreen> {
   static const totalTime = 60;
   final PageController _pageController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+    QuestionGenerator.getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,20 +80,26 @@ class _QuestionScreenState extends State<QuestionScreen> {
                       thickness: 1.5,
                     ),
                     const SizedBox(height: 20),
-                    Expanded(
-                      child: PageView.builder(
-                        // Block swipe to next qn
-                        physics: const NeverScrollableScrollPhysics(),
-                        controller: _pageController,
-                        onPageChanged: (index) {},
-                        itemCount: 10,
-                        itemBuilder: (context, index) => QuestionCard(
-                          question: QuestionGenerator.results[index].question,
-                          options: [],
-                          correctAnswer: 'true',
-                        ),
-                      ),
-                    )
+                    FutureBuilder(
+                        future: QuestionGenerator.getData(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Expanded(
+                              child: PageView.builder(
+                                // Block swipe to next qn
+                                physics: const NeverScrollableScrollPhysics(),
+                                controller: _pageController,
+                                onPageChanged: (index) {},
+                                itemCount: 10,
+                                itemBuilder: (context, index) => QuestionCard(
+                                  modelClass: QuestionGenerator.results[index],
+                                ),
+                              ),
+                            );
+                          } else {
+                            return const CircularProgressIndicator();
+                          }
+                        })
                   ],
                 ),
               ),

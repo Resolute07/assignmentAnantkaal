@@ -5,6 +5,7 @@ import 'package:quiz_app/screens/custom_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+  static const id = '/HomeScreen';
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

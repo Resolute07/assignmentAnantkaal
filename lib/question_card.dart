@@ -2,24 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/option_card.dart';
 
 import 'constants.dart';
+import 'model_class.dart';
 
 class QuestionCard extends StatefulWidget {
-  const QuestionCard(
-      {super.key,
-      required this.question,
-      required this.options,
-      required this.correctAnswer});
+  const QuestionCard({
+    super.key,
+    required this.modelClass,
+  });
 
-  final String question;
-  final List<String> options;
-  final String correctAnswer;
+  final ModelClass modelClass;
 
   @override
   State<QuestionCard> createState() => _QuestionCardState();
 }
 
 class _QuestionCardState extends State<QuestionCard> {
-  bool _isCheck = false;
+  void checkAnswer(index) {
+    if (CorrectAnswer.values[index] == widget.modelClass.correctAnswer) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,7 +34,7 @@ class _QuestionCardState extends State<QuestionCard> {
           children: [
             //Question
             Text(
-              widget.question,
+              widget.modelClass.question,
               style: const TextStyle(color: Colors.black),
             ),
 
@@ -41,10 +42,14 @@ class _QuestionCardState extends State<QuestionCard> {
             //options
             ...List.generate(
                 2,
-                (index) =>
-                    OptionCard(option: "true", index: index, press: () {}))
+                (index) => OptionCard(
+                      option: CorrectAnswer.values[index],
+                      index: index,
+                      correctAnswer: widget.modelClass.correctAnswer,
+                    )
 
-            //submit button
+                //submit button
+                ),
           ],
         ),
       ),

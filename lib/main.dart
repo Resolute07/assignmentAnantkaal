@@ -20,11 +20,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData.dark(),
-      home: const QuestionScreen(),
-      //home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData.dark(),
+        //home: const QuestionScreen(),
+        initialRoute: SplashScreen.id,
+        routes: {
+          HomeScreen.id: (context) => const HomeScreen(),
+          QuestionScreen.id: (context) => const QuestionScreen(),
+          SplashScreen.id: (context) => const SplashScreen(),
+        }
+        //home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        );
   }
 }
 

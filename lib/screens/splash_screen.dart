@@ -1,11 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:quiz_app/question_generator.dart';
+
+import 'package:quiz_app/screens/home_screen.dart';
+import 'package:quiz_app/screens/question_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
-  static const id = '/splashScreen';
+  static const id = '/';
 
   @override
   SplashScreenState createState() => SplashScreenState();
@@ -13,22 +17,30 @@ class SplashScreen extends StatefulWidget {
 
 class SplashScreenState extends State<SplashScreen> {
   double _opacityLevel = 0.0;
-  SplashScreenState() {
-    Timer(const Duration(seconds: 2), () {
+
+  @override
+  void initState() {
+    super.initState();
+    Timer(const Duration(milliseconds: 100), () {
       setState(() {
         _opacityLevel = 1.0;
+      });
+    });
+    Timer(const Duration(seconds: 3), () {
+      setState(() {
+        Navigator.pushNamed(context, QuestionScreen.id);
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Container(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            //Theme.of(context).colorScheme.secondary, Theme.of(context).primaryColor
-            colors: [Colors.white10, Colors.white10],
+            colors: [Colors.blue, Colors.blueGrey],
             begin: FractionalOffset(0, 0),
             end: FractionalOffset(1.0, 0.0),
             stops: [0.0, 1.0],
@@ -37,7 +49,7 @@ class SplashScreenState extends State<SplashScreen> {
         ),
         child: AnimatedOpacity(
           opacity: _opacityLevel,
-          duration: const Duration(milliseconds: 500),
+          duration: const Duration(seconds: 2),
           child: Center(
             child: Container(
               height: 150.0,

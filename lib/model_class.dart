@@ -18,6 +18,9 @@ class ModelClass {
   CorrectAnswer correctAnswer;
   List<CorrectAnswer> incorrectAnswers;
 
+  //This the class ,used to parse the data from the api,
+  //the modalClass stored all the data as data members
+
   ModelClass({
     required this.category,
     required this.type,
@@ -40,7 +43,7 @@ class ModelClass {
   Map<String, dynamic> toJson() => {
         "category": category,
         "type": typeValues.reverse[type],
-        "difficulty": difficultyValues.reverse[difficulty],
+        "difficulty": difficultyValues.reverse[difficulty]!,
         "question": question,
         "correct_answer": correctAnswerValues.reverse[correctAnswer],
         "incorrect_answers": List<dynamic>.from(
@@ -53,10 +56,17 @@ enum CorrectAnswer { TRUE, FALSE }
 final correctAnswerValues =
     EnumValues({"False": CorrectAnswer.FALSE, "True": CorrectAnswer.TRUE});
 
-enum Difficulty { MEDIUM, EASY }
+enum Difficulty {
+  MEDIUM,
+  EASY,
+  HARD,
+}
 
-final difficultyValues =
-    EnumValues({"easy": Difficulty.EASY, "medium": Difficulty.MEDIUM});
+final difficultyValues = EnumValues({
+  "easy": Difficulty.EASY,
+  "medium": Difficulty.MEDIUM,
+  "hard": Difficulty.HARD
+});
 
 enum Type { BOOLEAN }
 

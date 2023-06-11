@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:quiz_app/screens/score_screen.dart';
 import 'package:quiz_app/screens/home_screen.dart';
 import 'package:quiz_app/screens/question_screen.dart';
 import 'package:quiz_app/screens/splash_screen.dart';
-import 'package:quiz_app/screens/welcome_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
           HomeScreen.id: (context) => const HomeScreen(),
           QuestionScreen.id: (context) => const QuestionScreen(),
           SplashScreen.id: (context) => const SplashScreen(),
+          ScoreScreen.id: (context) => const ScoreScreen(),
         }
         //home: const MyHomePage(title: 'Flutter Demo Home Page'),
         );

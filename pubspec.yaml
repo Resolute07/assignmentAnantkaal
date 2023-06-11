@@ -38,6 +38,7 @@ dependencies:
   hive_flutter:
   hive:
   http:
+  html_unescape: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:quiz_app/question_generator.dart';
-
-import 'package:quiz_app/screens/home_screen.dart';
+import 'package:quiz_app/controller.dart';
 import 'package:quiz_app/screens/question_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -21,15 +19,16 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    //XController.getData();
     Timer(const Duration(milliseconds: 100), () {
       setState(() {
         _opacityLevel = 1.0;
       });
     });
-    Timer(const Duration(seconds: 3), () {
-      setState(() {
-        Navigator.pushNamed(context, QuestionScreen.id);
-      });
+    Timer(const Duration(seconds: 3), () async {
+      NavigatorState state = Navigator.of(context);
+      await XController.getData();
+      state.pushNamed(QuestionScreen.id);
     });
   }
 

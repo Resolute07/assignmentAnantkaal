@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:html_unescape/html_unescape.dart';
 import 'package:quiz_app/option_card.dart';
-
-import 'constants.dart';
 import 'model_class.dart';
+
+// This is a custom card to display the questions.
 
 class QuestionCard extends StatefulWidget {
   const QuestionCard({
     super.key,
     required this.modelClass,
   });
-
+  //ModelClass is a class containing all the data we extracted from the api.
   final ModelClass modelClass;
 
   @override
@@ -17,9 +18,8 @@ class QuestionCard extends StatefulWidget {
 }
 
 class _QuestionCardState extends State<QuestionCard> {
-  void checkAnswer(index) {
-    if (CorrectAnswer.values[index] == widget.modelClass.correctAnswer) {}
-  }
+  //used to convert the html escape character to raw String
+  HtmlUnescape unescape = HtmlUnescape();
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +34,15 @@ class _QuestionCardState extends State<QuestionCard> {
           children: [
             //Question
             Text(
-              widget.modelClass.question,
+              //covert escape character to string here and the question for the quiz is printed
+              unescape.convert(widget.modelClass.question),
               style: const TextStyle(color: Colors.black),
             ),
 
             const SizedBox(height: 20),
-            //options
+
+            //here we generate the options for the current question,
+            //the OptionCardClass iss Used
             ...List.generate(
                 2,
                 (index) => OptionCard(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:quiz_app/screens/custom_screen.dart';
+import 'package:quiz_app/screens/question_screen.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -117,9 +118,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             {'userName': _nameController.text, 'score': 0});
                         _localBox.putAll({'users': userList});
                       }
-                      final data = _localBox.get('users');
 
-                      print(data);
+                      Navigator.pushReplacementNamed(
+                          context, QuestionScreen.id);
                     },
                   ),
                 ],

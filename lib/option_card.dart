@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/controller.dart';
 import 'package:quiz_app/model_class.dart';
 
 import 'constants.dart';
@@ -9,9 +10,9 @@ class OptionCard extends StatefulWidget {
       required this.option,
       required this.index,
       required this.correctAnswer});
+
   final CorrectAnswer option;
   final int index;
-
   final CorrectAnswer correctAnswer;
 
   @override
@@ -20,7 +21,27 @@ class OptionCard extends StatefulWidget {
 
 class _OptionCardState extends State<OptionCard> {
   Color primaryColor = Colors.grey;
-  Color shadeColor = Colors.grey;
+  Color shadeColor = Colors.transparent;
+  bool isAnswered = false;
+  IconData getIcon() =>
+      (widget.option == widget.correctAnswer) ? Icons.done : Icons.close;
+
+  bool getColors() {
+    if (XController.checkAnswer(widget.option, widget.correctAnswer)) {
+      setState(() {
+        primaryColor = kGreenColor;
+        shadeColor = kGreenShade;
+      });
+      return true;
+    } else {
+      setState(() {
+        primaryColor = kRedColor;
+        shadeColor = kRedShade;
+      });
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,17 +49,19 @@ class _OptionCardState extends State<OptionCard> {
       width: double.infinity,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: Colors.red, width: 1),
-          color: kRedShade),
+          border: Border.all(
+            color: isAnswered ? primaryColor : Colors.grey,
+            width: 1,
+          ),
+          color: isAnswered ? shadeColor : Colors.transparent),
       child: InkWell(
         onTap: () {
-          if (widget.option == widget.correctAnswer) {
-            primaryColor = kGreenColor;
-            shadeColor = kGreenShade;
-          } else {
-            primaryColor = kRedColor;
-            shadeColor = kRedShade;
-          }
+          setState(() {
+            getColors();
+            isAnswered = true;
+          });
+
+          XController.nextQuestion(context);
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
@@ -47,7 +70,7 @@ class _OptionCardState extends State<OptionCard> {
             children: [
               // answer
               Text(
-                "${widget.index + 1}. ${widget.option}",
+                "${widget.index + 1}. ${widget.option.name}",
                 style: const TextStyle(color: Colors.black, fontSize: 16),
               ),
 
@@ -56,12 +79,13 @@ class _OptionCardState extends State<OptionCard> {
                 height: 26,
                 width: 26,
                 decoration: BoxDecoration(
-                  color: Colors.red,
+                  color: isAnswered ? primaryColor : Colors.white,
                   borderRadius: BorderRadius.circular(50),
-                  border: Border.all(color: kRedColor),
+                  border: Border.all(
+                      color: isAnswered ? primaryColor : Colors.grey),
                 ),
-                child: const Icon(
-                  Icons.close,
+                child: Icon(
+                  getIcon(),
                   size: 16,
                 ),
               )

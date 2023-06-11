@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/progress_bar.dart';
 import 'package:quiz_app/question_card.dart';
-import 'package:quiz_app/question_generator.dart';
+import 'package:quiz_app/controller.dart';
 import 'package:quiz_app/screens/custom_screen.dart';
 
 import '../constants.dart';
@@ -16,12 +16,10 @@ class QuestionScreen extends StatefulWidget {
 
 class _QuestionScreenState extends State<QuestionScreen> {
   static const totalTime = 60;
-  final PageController _pageController = PageController();
 
   @override
   void initState() {
     super.initState();
-    QuestionGenerator.getData();
   }
 
   @override
@@ -60,46 +58,58 @@ class _QuestionScreenState extends State<QuestionScreen> {
                   children: [
                     const ProgressBar(totalTime: totalTime),
                     const SizedBox(height: 30),
-                    const Text.rich(
+
+                    //this text represents the current question out of the total questions qiven
+                    Text.rich(
                       TextSpan(
-                        text: "Question 1",
-                        style: TextStyle(
+                        text: "Question ${XController.currentQuestionIndex}",
+                        style: const TextStyle(
                             color: kSecondaryColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 30),
                         children: [
                           TextSpan(
-                            text: "/10",
-                            style:
-                                TextStyle(color: kSecondaryColor, fontSize: 20),
+                            text: "/${XController.totalQuestions}",
+                            style: const TextStyle(
+                                color: kSecondaryColor, fontSize: 20),
                           ),
                         ],
                       ),
                     ),
+
                     const Divider(
                       thickness: 1.5,
                     ),
                     const SizedBox(height: 20),
-                    FutureBuilder(
-                        future: QuestionGenerator.getData(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return Expanded(
-                              child: PageView.builder(
-                                // Block swipe to next qn
-                                physics: const NeverScrollableScrollPhysics(),
-                                controller: _pageController,
-                                onPageChanged: (index) {},
-                                itemCount: 10,
-                                itemBuilder: (context, index) => QuestionCard(
-                                  modelClass: QuestionGenerator.results[index],
-                                ),
-                              ),
-                            );
-                          } else {
-                            return const CircularProgressIndicator();
-                          }
-                        })
+
+                    //This executes if the data from qpi extracted
+                    if (XController.results.isNotEmpty)
+                      Expanded(
+                        child: PageView.builder(
+
+                            // Block swipe to next question
+                            physics: const NeverScrollableScrollPhysics(),
+
+                            //page controller
+                            controller: XController.pageController,
+
+                            //on page change we go to next question
+                            onPageChanged: (index) {
+                              setState(() {
+                                XController.currentQuestionIndex = index + 1;
+                              });
+                            },
+                            itemCount: 10,
+                            itemBuilder: (context, index) {
+                              return QuestionCard(
+                                modelClass: XController.results[index],
+                              );
+                            }),
+                      ),
+
+                    //this executes if the data from api is not extracted
+                    if (XController.results.isEmpty)
+                      const Center(child: CircularProgressIndicator()),
                   ],
                 ),
               ),

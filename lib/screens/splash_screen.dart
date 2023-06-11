@@ -70,7 +70,7 @@ class SplashScreenState extends State<SplashScreen> {
             AnimatedTextKit(
               animatedTexts: [
                 ColorizeAnimatedText(
-                  'Larry Page',
+                  'Quiz',
                   textStyle: colorizeTextStyle,
                   colors: colorizeColors,
                 ),

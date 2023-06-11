@@ -31,7 +31,7 @@ class SplashScreenState extends State<SplashScreen> {
     });
     Timer(const Duration(seconds: 5), () async {
       NavigatorState state = Navigator.of(context);
-      XController.getData();
+      await XController.getData();
       state.pushReplacementNamed(HomeScreen.id);
     });
   }
@@ -68,6 +68,7 @@ class SplashScreenState extends State<SplashScreen> {
             ),
             const SizedBox(height: 20),
             AnimatedTextKit(
+              totalRepeatCount: 5,
               animatedTexts: [
                 ColorizeAnimatedText(
                   'Quiz',

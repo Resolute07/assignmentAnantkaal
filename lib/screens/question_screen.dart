@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/progress_bar.dart';
-import 'package:quiz_app/question_card.dart';
-import 'package:quiz_app/controller.dart';
+import 'package:quiz_app/custom_widget/progress_bar.dart';
+import 'package:quiz_app/custom_widget/question_card.dart';
+import 'package:quiz_app/controller/controller.dart';
 import 'package:quiz_app/screens/custom_screen.dart';
 
 import '../constants.dart';
@@ -15,8 +15,6 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
-  static const totalTime = 60;
-
   @override
   void initState() {
     super.initState();
@@ -56,7 +54,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const ProgressBar(totalTime: totalTime),
+                    const ProgressBar(totalTime: XController.totalTime),
                     const SizedBox(height: 30),
 
                     //this text represents the current question out of the total questions qiven

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomScreen extends StatefulWidget {
   const CustomScreen({super.key, this.child, this.alignment, this.appBar});

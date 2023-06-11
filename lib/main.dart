@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:quiz_app/screens/score_screen.dart';
 import 'package:quiz_app/screens/home_screen.dart';
@@ -29,9 +28,7 @@ class MyApp extends StatelessWidget {
           QuestionScreen.id: (context) => const QuestionScreen(),
           SplashScreen.id: (context) => const SplashScreen(),
           ScoreScreen.id: (context) => const ScoreScreen(),
-        }
-        //home: const MyHomePage(title: 'Flutter Demo Home Page'),
-        );
+        });
   }
 }
 

@@ -33,21 +33,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
         alignment: AlignmentDirectional.topStart,
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Icon(
-                  Icons.keyboard_arrow_left,
-                  size: 40,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                  child: Text("Skip",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                ),
-              ],
-            ),
+            const SizedBox(height: 50),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),

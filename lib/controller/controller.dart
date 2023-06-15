@@ -12,7 +12,9 @@ class XController {
   static int totalQuestions = 0;
   static int correctAnsweredNumber = 0;
   static String currentUserName = "";
-  static const int totalTime = 60;
+  static const int totalTime = 30;
+  static List<dynamic>? history = [];
+  static dynamic localBox;
 
   static init() {
     pageController = PageController();
@@ -56,13 +58,29 @@ class XController {
       const Duration(milliseconds: 500),
       () {
         if (currentQuestionIndex == totalQuestions) {
-          Navigator.pushReplacementNamed(context, ScoreScreen.id);
+          goToScoreScreen(context);
         }
         XController.pageController.nextPage(
             duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
       },
     );
-
     //
+  }
+
+  static void updateHistory() {
+    XController.history ??= [];
+    if (XController.history!.length >= 10) {
+      //if not null check the length is checked and last user is deleted
+      XController.history?.removeAt(0);
+    }
+    //the new user name is added
+    XController.history?.add({
+      'userName': currentUserName,
+      'score': "$correctAnsweredNumber / $totalQuestions"
+    });
+  }
+
+  static void goToScoreScreen(BuildContext context) {
+    Navigator.pushReplacementNamed(context, ScoreScreen.id);
   }
 }

@@ -71,11 +71,13 @@ class ScoreScreen extends StatelessWidget {
             CustomButton(
               text: 'Restart',
               onPressed: () {
+                XController.updateHistory();
                 XController.results.shuffle();
                 Navigator.pushReplacementNamed(context, HomeScreen.id);
                 XController.init();
               },
-            )
+            ),
+            const SizedBox(height: 100),
           ],
         ),
       ),

@@ -22,7 +22,8 @@ class OptionCard extends StatefulWidget {
 class _OptionCardState extends State<OptionCard> {
   Color primaryColor = Colors.grey;
   Color shadeColor = Colors.transparent;
-  bool isAnswered = false;
+  bool localAnswered = false;
+
   IconData getIcon() =>
       (widget.option == widget.correctAnswer) ? Icons.done : Icons.close;
 
@@ -50,18 +51,24 @@ class _OptionCardState extends State<OptionCard> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           border: Border.all(
-            color: isAnswered ? primaryColor : Colors.grey,
+            color: localAnswered && XController.isAnswered
+                ? primaryColor
+                : Colors.grey,
             width: 1,
           ),
-          color: isAnswered ? shadeColor : Colors.transparent),
+          color: localAnswered && XController.isAnswered
+              ? shadeColor
+              : Colors.transparent),
       child: InkWell(
         onTap: () {
           setState(() {
-            getColors();
-            isAnswered = true;
+            if (!XController.isAnswered) {
+              getColors();
+              localAnswered = true;
+              XController.isAnswered = true;
+              XController.nextQuestion(context);
+            }
           });
-
-          XController.nextQuestion(context);
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
@@ -79,10 +86,14 @@ class _OptionCardState extends State<OptionCard> {
                 height: 26,
                 width: 26,
                 decoration: BoxDecoration(
-                  color: isAnswered ? primaryColor : Colors.white,
+                  color: localAnswered && XController.isAnswered
+                      ? primaryColor
+                      : Colors.white,
                   borderRadius: BorderRadius.circular(50),
                   border: Border.all(
-                      color: isAnswered ? primaryColor : Colors.grey),
+                      color: localAnswered && XController.isAnswered
+                          ? primaryColor
+                          : Colors.grey),
                 ),
                 child: Icon(
                   getIcon(),

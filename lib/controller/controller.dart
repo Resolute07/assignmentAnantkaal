@@ -15,6 +15,7 @@ class XController {
   static const int totalTime = 30;
   static List<dynamic>? history = [];
   static dynamic localBox;
+  static bool isAnswered = false;
 
   static init() {
     pageController = PageController();
@@ -22,6 +23,7 @@ class XController {
     currentUserName = "";
     totalQuestions = results.length;
     correctAnsweredNumber = 0;
+    isAnswered = false;
   }
 
   static Future<void> getData() async {
@@ -54,17 +56,16 @@ class XController {
   }
 
   static void nextQuestion(BuildContext context) {
-    Timer(
-      const Duration(milliseconds: 500),
-      () {
-        if (currentQuestionIndex == totalQuestions) {
-          goToScoreScreen(context);
-        }
-        XController.pageController.nextPage(
-            duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
-      },
-    );
-    //
+    Future.delayed(const Duration(seconds: 1), () {
+      if (currentQuestionIndex == totalQuestions) {
+        goToScoreScreen(context);
+      }
+      XController.pageController.nextPage(
+          duration: const Duration(milliseconds: 250), curve: Curves.easeIn);
+      Future.delayed(const Duration(milliseconds: 250), () {
+        XController.isAnswered = false;
+      });
+    });
   }
 
   static void updateHistory() {

@@ -12,7 +12,11 @@ Welcome to the Quiz App! This interactive mobile application allows users to tes
 
 - **History Feature**: Users can view their quiz history, including their previous scores and performance, to track their progress over time.
 
-## Screenshots
+## Output
+
+
+
+https://github.com/spandan3001/quiz_anantkaal/assets/73657279/b9d5ffd3-0432-4c36-b475-1d2b8b069012
 
 
 
